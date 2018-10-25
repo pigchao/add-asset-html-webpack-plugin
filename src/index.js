@@ -119,7 +119,7 @@ export default class AddAssetHtmlPlugin {
 
     const resolvedPublicPath =
       typeof publicPath === 'undefined'
-        ? resolvePublicPath(compilation, addedFilename)
+        ? resolvePublicPath(compilation, addedFilename, htmlPluginData.outputName)
         : ensureTrailingSlash(publicPath);
     const resolvedPath = `${resolvedPublicPath}${addedFilename}${suffix}`;
 

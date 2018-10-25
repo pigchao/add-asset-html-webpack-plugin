@@ -10,12 +10,13 @@ export function ensureTrailingSlash(string) {
 }
 
 // Copied from html-webpack-plugin
-export function resolvePublicPath(compilation, filename) {
+export function resolvePublicPath(compilation, filename, childCompilationOutputName) {
   /* istanbul ignore else */
   const publicPath =
     typeof compilation.options.output.publicPath !== 'undefined'
       ? compilation.options.output.publicPath
-      : path.relative(path.dirname(filename), '.'); // TODO: How to test this? I haven't written this logic, unsure what it does
+      : path.relative(path.resolve(compilation.options.output.path, path.dirname(childCompilationOutputName)), compilation.options.output.path)
+          .split(path.sep).join('/'); // Copied from html-webpack-plugin, resolve relative path from output html
 
   return ensureTrailingSlash(publicPath);
 }
